@@ -1,6 +1,6 @@
-# Library Management System — plain Java + JDBC
+# Library Management System —  Java + JDBC
 
-This project uses plain Java, direct JDBC calls to MySQL, and Java's built-in HTTP server. It does not use Spring Boot, Spring, or an external servlet container. The browser screens retain the supplied project's library workflow and stylesheet.
+This project uses  Java, direct JDBC calls to MySQL, and Java's built-in HTTP server. It does not use Spring Boot, Spring, or an external servlet container. The browser screens retain the supplied project's library workflow and stylesheet.
 
 ## Requirements
 
