@@ -1,0 +1,24 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Run Library Management System",
+      "request": "launch",
+      "mainClass": "edu.library.App",
+      "projectName": "library-management",
+      "env": {
+        "LIBRARY_DB_USER": "root",
+        "LIBRARY_DB_PASSWORD": "${input:dbPassword}"
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "dbPassword",
+      "type": "promptString",
+      "description": "MySQL password",
+      "password": true
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Library System Login</title><link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<main class="container login-container">
+    <h1>📚 Library Management System</h1>
+    <h2>Login / Register</h2>
+    <div th:if="${message}" class="message" th:classappend="${messageType == 'success' ? ' success' : ' error'}" th:text="${message}"></div>
+    <form method="post" th:action="@{/auth}">
+        <input type="hidden" name="action" id="action_field" value="login">
+        <label for="username">Username:</label><input type="text" id="username" name="username" required maxlength="50">
+        <label for="password">Password:</label><input type="password" id="password" name="password" required maxlength="100">
+        <button type="submit" onclick="document.getElementById('action_field').value='login'">Login</button>
+        <button type="submit" class="secondary" onclick="document.getElementById('action_field').value='register'">Register as Student</button>
+    </form>
+    <p class="hint">Default librarian: librarian / admin123</p>
+</main>
+</body>
+</html>

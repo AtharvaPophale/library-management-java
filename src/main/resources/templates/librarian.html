@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Librarian Dashboard</title><link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<main class="container">
+    <header class="page-header"><h1>Librarian Dashboard</h1><div>Welcome, <strong th:text="${username}"></strong> <a th:href="@{/logout}" class="btn logout">Log out</a></div></header>
+    <div th:if="${message}" class="message" th:classappend="${messageType == 'success' ? ' success' : ' error'}" th:text="${message}"></div>
+    <div class="action-group">
+        <section class="action-card"><h2>➕ Add New Book</h2>
+            <form method="post" th:action="@{/add_book}">
+                <label for="title">Title</label><input id="title" type="text" name="title" placeholder="Title" required maxlength="255">
+                <label for="author">Author</label><input id="author" type="text" name="author" placeholder="Author" required maxlength="255">
+                <label for="isbn">ISBN</label><input id="isbn" type="text" name="isbn" placeholder="ISBN" required maxlength="20">
+                <button type="submit">Add Book</button>
+            </form>
+        </section>
+        <section class="action-card"><h2>➖ Remove Book</h2>
+            <form method="post" th:action="@{/remove_book}">
+                <label for="remove-isbn">ISBN</label><input id="remove-isbn" type="text" name="isbn" placeholder="ISBN to Remove" required maxlength="20">
+                <button type="submit" class="danger">Remove Book</button>
+            </form>
+        </section>
+    </div>
+    <h2>📕 Book Catalog (<span th:text="${#lists.size(books)}">0</span> total)</h2>
+    <div class="table-wrap"><table><thead><tr><th>Title</th><th>Author</th><th>ISBN</th><th>Status</th></tr></thead>
+        <tbody><tr th:each="book : ${books}"><td th:text="${book.title}"></td><td th:text="${book.author}"></td><td th:text="${book.isbn}"></td><td th:text="${book.status}" th:classappend="${book.status == 'Available' ? ' status-available' : ' status-borrowed'}"></td></tr>
+        <tr th:if="${#lists.isEmpty(books)}"><td colspan="4" class="empty">No books in the catalog yet.</td></tr></tbody>
+    </table></div>
+</main>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Student Dashboard</title><link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<main class="container">
+    <header class="page-header"><h1>Student Dashboard</h1><div>Welcome, <strong th:text="${username}"></strong> <a th:href="@{/logout}" class="btn logout">Log out</a></div></header>
+    <div th:if="${message}" class="message" th:classappend="${messageType == 'success' ? ' success' : ' error'}" th:text="${message}"></div>
+    <section class="message info summary">
+        <p><strong>Total Outstanding Fines:</strong> <span class="fine-status">$<span th:text="${fines}">0.00</span></span></p>
+        <p><strong>Books Currently Borrowed:</strong> <span th:text="${#lists.size(loans)}">0</span></p>
+    </section>
+    <div class="action-group">
+        <section class="action-card"><h2>➡️ Borrow Book</h2>
+            <form method="post" th:action="@{/borrow}"><label for="borrow-isbn">ISBN</label><input id="borrow-isbn" type="text" name="isbn" placeholder="ISBN to Borrow" required maxlength="20"><button type="submit">Borrow</button></form>
+        </section>
+        <section class="action-card"><h2>↩️ Return Book</h2>
+            <form method="post" th:action="@{/return}"><label for="return-isbn">ISBN</label><input id="return-isbn" type="text" name="isbn" placeholder="ISBN to Return" required maxlength="20"><button type="submit" class="warning">Return</button></form>
+        </section>
+    </div>
+    <h2>Your Active Loans</h2>
+    <div class="table-wrap"><table><thead><tr><th>Title</th><th>ISBN</th><th>Borrowed</th><th>Due</th></tr></thead><tbody>
+        <tr th:each="loan : ${loans}"><td th:text="${loan.title}"></td><td th:text="${loan.isbn}"></td><td th:text="${loan.borrow_date}"></td><td th:text="${loan.due_date}"></td></tr>
+        <tr th:if="${#lists.isEmpty(loans)}"><td colspan="4" class="empty">You have no active loans.</td></tr>
+    </tbody></table></div>
+    <h2>📕 Search &amp; View Catalog</h2>
+    <div class="table-wrap"><table><thead><tr><th>Title</th><th>Author</th><th>ISBN</th><th>Status</th></tr></thead><tbody>
+        <tr th:each="book : ${books}"><td th:text="${book.title}"></td><td th:text="${book.author}"></td><td th:text="${book.isbn}"></td><td th:text="${book.status}" th:classappend="${book.status == 'Available' ? ' status-available' : ' status-borrowed'}"></td></tr>
+        <tr th:if="${#lists.isEmpty(books)}"><td colspan="4" class="empty">No books in the catalog yet.</td></tr>
+    </tbody></table></div>
+</main>
+</body>
+</html>
