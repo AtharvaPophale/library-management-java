@@ -54,4 +54,4 @@ The demo librarian login is **librarian / admin123**. Students can register on t
 - Seven-day loan period; overdue fines are $0.50 per day
 - Outstanding fines prevent additional borrowing
 
-`library_data.pkl` is a Python pickle and is not imported. Existing accounts keep the schema's plain-text password format for compatibility; password hashing should be added before production use.
+
